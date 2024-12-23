@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import androidx.xr.compose.platform.LocalSpatialCapabilities
+import androidx.xr.compose.spatial.EdgeOffset.Companion.inner
 import androidx.xr.compose.spatial.Orbiter
 import androidx.xr.compose.spatial.OrbiterEdge
 import androidx.xr.compose.spatial.Subspace
@@ -241,8 +242,12 @@ private fun TopAppBar() {
         Spacer(Modifier.weight(1f))
         Orbiter(
             position = OrbiterEdge.Top,
-            offset = dimensionResource(R.dimen.top_ornament_padding),
-            alignment = Alignment.Start
+            // Inner offset - like padding between content and orbiter, "inside" edge is one
+            // closest to content.
+            // Outer offset - like the position of the "top/start" of the orbiter, "outside" edge
+            // is one furthest from content.
+            offset = inner(16.dp),
+            alignment = Alignment.Start,
         ) {
             SearchBar()
         }
